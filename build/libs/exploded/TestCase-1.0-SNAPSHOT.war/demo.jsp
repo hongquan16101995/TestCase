@@ -11,11 +11,11 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resource/css/main.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="resource/js/main.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 
@@ -24,7 +24,7 @@
     <div class="container-fluid header" id="header">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-lg-2 col-xl-2 block-image">
-                <img src="resource/image/logo.png" class="img-responsive img-logo" alt="Lỗi hiển thị">
+                <img src="image/logo.png" class="img-responsive img-logo" alt="Lỗi hiển thị">
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-8 col-xl-8 block-background">
                 <h1 class="name-shop">Shop HQ</h1>
@@ -83,23 +83,78 @@
 <!--đây là section-->
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-lg-3 col-xl-3 content">
             <c:forEach items="${listAllProduct}" var="products">
-                <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 product">
                         <img src="${products.imageUrl}" alt="không có" width="200px" height="200px">
                             ${products.name}
                             ${products.price}
                             ${products.id}
-                            ${products.productType}
-                            ${products.description}
-                            ${products.imageUrl}
-<%--                        <a href="/users?action=edit&id=${products.id}">Edit</a>--%>
-<%--                        <a href="/users?action=delete&id=${products.id}">Delete</a>--%>
+                            <%--                        <a href="/users?action=edit&id=${products.id}">Edit</a>--%>
+                            <%--đây là form edit product--%>
+                        <div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-xl-5 block-image">
+                                            <img src="${products.imageUrl}" alt="Lỗi hiển thị" class="img-responsive"
+                                                 width="300px" height="500px" style="margin: 20px">
+                                        </div>
+                                        <div class="col-lg-6 col-xl-6 block-contact">
+                                            <h3 style="text-align: center">Edit product</h3>
+                                            <form action="/home" method="get">
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="text" class="form-control" name="product-name"
+                                                               size="50"
+                                                               value="${product.name}">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="text" class="form-control" name="product-type"
+                                                               size="50"
+                                                               value="${product.price}">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="text" class="form-control" name="product-price"
+                                                               size="50"
+                                                               value="${products}">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="text" class="form-control"
+                                                               name="product-description" size="50"
+                                                               value="${products.name}">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <input type="text" class="form-control" name="product-imageurl"
+                                                               size="50"
+                                                               value="${products.name}">
+                                                    </label>
+                                                </div>
+                                                <div class="form-group" style="text-align: center">
+                                                    <input type="submit" class="btn btn-primary" value="Tạo tài khoản">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-link" data-toggle="modal"
+                                data-target=".bs-example-modal-lg-edit">
+                            Sửa
+                        </button>
+                            <%--đây là form edit product--%>
+
                     </div>
-                </div>
             </c:forEach>
-        </div>
     </div>
 </div>
 <!--đây là section-->
@@ -170,7 +225,7 @@
         <div class="modal-content">
             <div class="row">
                 <div class="col-lg-5 col-xl-5 block-image">
-                    <img src="resource/image/logo.png" alt="Lỗi hiển thị" class="img-responsive"
+                    <img src="image/logo.png" alt="Lỗi hiển thị" class="img-responsive"
                          width="300px" height="500px" style="margin: 20px">
                 </div>
                 <div class="col-lg-6 col-xl-6 block-contact">
