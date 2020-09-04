@@ -1,6 +1,7 @@
 package service;
 
 import connection.ConnectionDBOfProduct;
+import model.Product;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "ProductServlet", urlPatterns = "/users")
+@WebServlet(name = "ProductServlet", urlPatterns = "/product")
 public class ProductServlet extends HttpServlet {
     ConnectionDBOfProduct connectionDBOfProduct = new ConnectionDBOfProduct();
 
@@ -29,7 +30,7 @@ public class ProductServlet extends HttpServlet {
 //                    showNewForm(request, response);
                 break;
             case "edit":
-//                    showEditForm(request, response);
+                    editProduct(request, response);
                 break;
             case "delete":
                 deleteProductById(request, response);
@@ -38,6 +39,28 @@ public class ProductServlet extends HttpServlet {
                 listAllProduct(request, response);
                 break;
         }
+    }
+
+    private void editProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("product-name");
+        String type = request.getParameter("product-type");
+        long price = Long.parseLong(request.getParameter("product-price"));
+        String description = request.getParameter("product-description");
+        String imageUrl = request.getParameter("product-imageurl");
+
+        Product product = connectionDBOfProduct.selectProductById(id);
+
+        product.setName(name);
+        product.setProductType(type);
+        product.setPrice(price);
+        product.setDescription(description);
+        product.setImageUrl(imageUrl);
+
+        connectionDBOfProduct.updateProduct(product);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+        dispatcher.forward(request, response);
     }
 
     private void deleteProductById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

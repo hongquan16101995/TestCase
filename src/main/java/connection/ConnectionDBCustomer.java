@@ -14,5 +14,5 @@ public interface ConnectionDBCustomer {
 
     public List<Customer> selectAllCustomer();
 
-    public Customer selectCustomerByName(int id);
+    public Customer selectCustomerByName(String account);
 }

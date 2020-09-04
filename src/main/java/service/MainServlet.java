@@ -22,4 +22,11 @@ public class MainServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("demo.jsp");
         dispatcher.forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Product> products = connectionDBOfProduct.selectAllProduct();
+        request.setAttribute("listAllProduct", products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("demo.jsp");
+        dispatcher.forward(request, response);
+    }
 }

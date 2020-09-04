@@ -47,7 +47,12 @@ public class ConnectionDBOfProduct implements ConnectionDBProduct {
         boolean rowUpdated = false;
         try (
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCT_SQL)) {
-            setValueOfCustomer(product, preparedStatement);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getProductType());
+            preparedStatement.setLong(3, product.getPrice());
+            preparedStatement.setString(4, product.getDescription());
+            preparedStatement.setString(5, product.getImageUrl());
+            preparedStatement.setInt(6, product.getID());
             rowUpdated = preparedStatement.executeUpdate() > 0;
         }catch (SQLException e){
             e.printStackTrace();

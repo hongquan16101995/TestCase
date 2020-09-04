@@ -83,78 +83,86 @@
 <!--đây là section-->
 <div class="container">
     <div class="row">
-            <c:forEach items="${listAllProduct}" var="products">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 product">
-                        <img src="${products.imageUrl}" alt="không có" width="200px" height="200px">
-                            ${products.name}
-                            ${products.price}
-                            ${products.id}
-                            <%--                        <a href="/users?action=edit&id=${products.id}">Edit</a>--%>
-                            <%--đây là form edit product--%>
-                        <div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog"
-                             aria-labelledby="myLargeModalLabel">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-xl-5 block-image">
-                                            <img src="${products.imageUrl}" alt="Lỗi hiển thị" class="img-responsive"
-                                                 width="300px" height="500px" style="margin: 20px">
+        <jsp:useBean id="listAllProduct" scope="request" type="java.util.List"/>
+        <c:forEach items="${listAllProduct}" var="products">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 product">
+                <div class="block-image-product">
+                    <img src="${products.getImageUrl()}" class="img-responsive img-thumbnail" alt="không có" width="300px" height="300px">
+                </div>
+                <div class="block-image-product" style="text-align: center; margin-top: 10px">
+                        ${products.getName()}
+                </div>
+                <div class="block-image-product" style="text-align: center">
+                        ${products.getPrice()}
+                </div>
+                <div class="block-button" style="text-align: center">
+                    <a href="${pageContext.request.contextPath}/product?action=delete&id=${products.getID()}">Delete</a>
+                    <button type="button" class="btn btn-link" data-toggle="modal"
+                            data-target=".bs-example-modal-lg-edit">
+                        Edit
+                    </button>
+                </div>
+
+                    <%--đây là form edit product--%>
+                <div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog"
+                     aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="col-lg-5 col-xl-5 block-image">
+                                    <img src="${products.imageUrl}" alt="Lỗi hiển thị" class="img-responsive"
+                                         width="300px" height="500px" style="margin: 20px">
+                                </div>
+                                <div class="col-lg-6 col-xl-6 block-contact">
+                                    <h3 style="text-align: center">Edit product</h3>
+                                    <form action="${pageContext.request.contextPath}/product?action=edit&id=${products.getID()}" method="get">
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="product-name"
+                                                       size="50"
+                                                       value="${products.getName()}">
+                                            </label>
                                         </div>
-                                        <div class="col-lg-6 col-xl-6 block-contact">
-                                            <h3 style="text-align: center">Edit product</h3>
-                                            <form action="/home" method="get">
-                                                <div class="form-group">
-                                                    <label>
-                                                        <input type="text" class="form-control" name="product-name"
-                                                               size="50"
-                                                               value="${product.name}">
-                                                    </label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>
-                                                        <input type="text" class="form-control" name="product-type"
-                                                               size="50"
-                                                               value="${product.price}">
-                                                    </label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>
-                                                        <input type="text" class="form-control" name="product-price"
-                                                               size="50"
-                                                               value="${products}">
-                                                    </label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>
-                                                        <input type="text" class="form-control"
-                                                               name="product-description" size="50"
-                                                               value="${products.name}">
-                                                    </label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>
-                                                        <input type="text" class="form-control" name="product-imageurl"
-                                                               size="50"
-                                                               value="${products.name}">
-                                                    </label>
-                                                </div>
-                                                <div class="form-group" style="text-align: center">
-                                                    <input type="submit" class="btn btn-primary" value="Tạo tài khoản">
-                                                </div>
-                                            </form>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="product-type"
+                                                       size="50"
+                                                       value="${products.getPrice()}">
+                                            </label>
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="product-price"
+                                                       size="50"
+                                                       value="${products.getProductType()}">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control"
+                                                       name="product-description" size="50"
+                                                       value="${products.getDescription()}">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="product-imageurl"
+                                                       size="50"
+                                                       value="${products.getImageUrl()}">
+                                            </label>
+                                        </div>
+                                        <div class="form-group" style="text-align: center">
+                                            <input type="submit" class="btn btn-primary" value="Edit">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                                data-target=".bs-example-modal-lg-edit">
-                            Sửa
-                        </button>
-                            <%--đây là form edit product--%>
-
                     </div>
-            </c:forEach>
+                </div>
+                    <%--đây là form edit product--%>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <!--đây là section-->
@@ -184,20 +192,20 @@
                 <div class="col-lg-1 col-xl-1 empty-block"></div>
                 <div class="col-lg-10 col-xl-10 block-login">
                     <h3 style="text-align: center">Đăng nhập</h3>
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login?action=login" method="post">
                         <table>
                             <tr>
                                 <td><label><span>Tài khoản:&nbsp;</span></label></td>
                                 <td><label>
                                     <input type="text" class="form-control" placeholder="Enter your account"
-                                           name="customer-name" size="35">
+                                           name="customer-account" size="35" required="">
                                 </label></td>
                             </tr>
                             <tr>
                                 <td><label><span>Mật khẩu:&nbsp;</span></label></td>
                                 <td><label>
                                     <input type="password" class="form-control" placeholder="Enter your password"
-                                           name="customer-age" size="35">
+                                           name="customer-password" size="35" required="">
                                 </label></td>
                             </tr>
                         </table>
@@ -230,57 +238,58 @@
                 </div>
                 <div class="col-lg-6 col-xl-6 block-contact">
                     <h3 style="text-align: center">Đăng ký</h3>
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login?action=registration" method="post">
                         <div class="form-group">
                             <label>
-                                <input type="text" class="form-control" placeholder="Enter your name"
-                                       name="customer-name" size="50">
+                                <input type="text" class="form-control
+" placeholder="Enter your name"
+                                       required="" name="customer-name" size="50">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
                                 <input type="number" class="form-control" placeholder="Enter your age"
-                                       name="customer-age">
+                                       required="" name="customer-age">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" required=""
                                        placeholder="Enter your phone-number" name="customer-phone"
                                        size="50">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="email" class="form-control"
+                                <input type="email" class="form-control" required=""
                                        placeholder="Enter your email" name="customer-email" size="50">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" required=""
                                        placeholder="Enter your address" name="customer-address" size="50">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="radio" id="male" name="customer-gender" value="male">
+                                <input type="radio" id="male" name="customer-gender" value="male" required="">
                                 <label for="male">Male</label>
-                                <input type="radio" id="female" name="customer-gender" value="female">
+                                <input type="radio" id="female" name="customer-gender" value="female" required="">
                                 <label for="female">Female</label>
-                                <input type="radio" id="other" name="customer-gender" value="other">
+                                <input type="radio" id="other" name="customer-gender" value="other" required="">
                                 <label for="other">Other</label>
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" required=""
                                        placeholder="Enter your account" name="customer-acc" size="50">
                             </label>
                         </div>
                         <div class="form-group">
                             <label>
-                                <input type="password" class="form-control"
+                                <input type="password" class="form-control" required=""
                                        placeholder="Enter your password" name="customer-pass" size="50">
                             </label>
                         </div>

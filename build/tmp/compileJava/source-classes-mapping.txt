@@ -1,22 +1,20 @@
-connection/ConnectionDBOfCustomer.java
- connection.ConnectionDBOfCustomer
-model/Account.java
- model.Account
+CharsetFilter.java
+ CharsetFilter
+service/MainServlet.java
+ service.MainServlet
+connection/ConnectionDBProduct.java
+ connection.ConnectionDBProduct
 model/Customer.java
  model.Customer
 connection/ConnectionDBCustomer.java
  connection.ConnectionDBCustomer
-CharsetFilter.java
- CharsetFilter
-connection/ConnectionDBProduct.java
- connection.ConnectionDBProduct
-connection/ConnectionDBOfProduct.java
- connection.ConnectionDBOfProduct
-service/ProductServlet.java
- service.ProductServlet
 model/Product.java
  model.Product
-service/RegistrationServlet.java
- service.RegistrationServlet
-service/MainServlet.java
- service.MainServlet
+service/ProductServlet.java
+ service.ProductServlet
+service/LoginServlet.java
+ service.LoginServlet
+connection/ConnectionDBOfCustomer.java
+ connection.ConnectionDBOfCustomer
+connection/ConnectionDBOfProduct.java
+ connection.ConnectionDBOfProduct
