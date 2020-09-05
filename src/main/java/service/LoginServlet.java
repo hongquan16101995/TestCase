@@ -1,7 +1,9 @@
 package service;
 
 import connection.ConnectionDBOfCustomer;
+import connection.ConnectionDBOfProduct;
 import model.Customer;
+import model.Product;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "service.RegistrationServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     ConnectionDBOfCustomer connectionDBOfCustomer = new ConnectionDBOfCustomer();
+    ConnectionDBOfProduct connectionDBOfProduct = new ConnectionDBOfProduct();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action=request.getParameter("action");
@@ -39,10 +43,20 @@ public class LoginServlet extends HttpServlet {
 
         Customer customerCheck = connectionDBOfCustomer.selectCustomerByName(account);
 
-        if(customerCheck.getAccount().equals(account) & customerCheck.getPassword().equals(password)){
+        if(account.equals("admin") & password.equals("admin")){
+            List<Product> products = connectionDBOfProduct.selectAllProduct();
+            request.setAttribute("listAllProduct", products);
+            request.setAttribute("account", account);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/home_admin.jsp");
             dispatcher.forward(request, response);
+        }else if(customerCheck.getAccount().equals(account) & customerCheck.getPassword().equals(password)){
+            List<Product> products = connectionDBOfProduct.selectAllProduct();
+            request.setAttribute("listAllProduct", products);
+            request.setAttribute("account", account);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/home_customer.jsp");
+            dispatcher.forward(request, response);
         }else {
+            response.setContentType("text/html");
             PrintWriter out = response.getWriter();
             out.println("Lỗi");
         }
@@ -64,12 +78,16 @@ public class LoginServlet extends HttpServlet {
         Customer customerCheck = connectionDBOfCustomer.selectCustomerByName(account);
 
         if (customerCheck != null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+            List<Product> products = connectionDBOfProduct.selectAllProduct();
+            request.setAttribute("listAllProduct", products);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/home_regis_not_done.jsp");
             dispatcher.forward(request, response);
         }
         Customer customer = new Customer(name, age, render, email, address, phone, account, password, dateCreate);
         connectionDBOfCustomer.insertCustomer(customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("home_customer.jsp");
+        List<Product> products = connectionDBOfProduct.selectAllProduct();
+        request.setAttribute("listAllProduct", products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/home_regis_done.jsp");
         dispatcher.forward(request, response);
     }
 
