@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ConnectionDBProduct {
-    public void insertProduct(Product product) throws SQLException;
+    public boolean insertProduct(Product product) throws SQLException;
 
     public boolean updateProduct(Product product) throws SQLException;
 
@@ -14,15 +14,15 @@ public interface ConnectionDBProduct {
 
     public List<Product> selectProductByName(String name);
 
-    public Product selectProductByCode(int id);
+    public Product selectProductByCode(int code);
 
     public Product selectProductById(int id);
 
     public List<Product> selectAllProduct();
 
-    public List<Product> selectProductOfShirt();
+    public List<Product> selectProductOfShirt(String type);
 
-    public List<Product> selectProductOfTrousers();
+    public List<Product> selectProductOfTrousers(String type);
 
-    public List<Product> selectProductOfShoes();
+    public List<Product> selectProductOfShoes(String type);
 }

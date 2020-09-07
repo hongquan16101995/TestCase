@@ -26,6 +26,16 @@ public class Customer {
         this.dateCreate = dateCreate;
     }
 
+    public Customer(String name, int age, String render, String email, String address, String phone, String account) {
+        this.name = name;
+        this.age = age;
+        this.render = render;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.account = account;
+    }
+
     public String getName() {
         return name;
     }
